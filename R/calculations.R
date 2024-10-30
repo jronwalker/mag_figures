@@ -43,7 +43,7 @@ frac_abund <- function(coverm_out, bin_dir, gtdbtk_dir, flagstat_dir,
   if (missing(cov_cut)){
   } else #Else is when it is present
   {
-    covm[["counts"]][covm[["coverage"]] < 0.5] <- 0
+    covm[["counts"]][covm[["coverage"]] < cov_cut] <- 0
   }
   #Merge the counts and contig/bin information
   b_counts <- merge(c2b, covm[["counts"]], by = "Contig")

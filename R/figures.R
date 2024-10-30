@@ -8,9 +8,6 @@
 #' @param num_color_ls Each number in this numeric list should correspond to the number times you want 
 #' to iterate each color in color_ls.
 #' #' @return The output will be a vector containing unique colors.
-#' @importFrom magrittr %>%
-#' @importFrom dplyr group_by_at
-#' @importFrom dplyr summarise_if
 #' @export
 makecolors <- function(color_ls, num_color_ls){
   palette <- c()
