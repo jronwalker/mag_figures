@@ -5,7 +5,7 @@ Currently, this programs main function is to take a CoverM output, a bin directo
 $$f_i = {r_i \over T_j} * {L_m \over L_i}$$  
 where: $f_i$ is the fractional abundance of contig i  
 $r_i$ is the number of reads mapped to contig i  
-$T_j$ is the total number of reads in a metagenome  
+$T_j$ is the total number of reads in metagenome j  
 $L_m$ is mean length of all contigs  
 $L_i$ is the length of contig i   
 ### How to generate the CoverM file
