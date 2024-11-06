@@ -1,11 +1,13 @@
 #' Calculate reads mapped per contig
 #'
-#' The functions takes a directory containing the samtools idxstats output files for each sample and 
-#' outputs a matrix usable for downstream analysis.
+#' The functions has 4 required parameters: CoverM output file a directory containing a separate 
+#' nucleotide fasta file per bin, a directory containing the output of GTDB-tk, and a directory 
+#' containing the outputs of samtools flagstat for each sample you mapped to your bins.
 #' @param coverm_out Text file of the output of CoverM. CoverM command should use the methods length, count, and covered_bases.
-#' @param bin_dir Path to directory containing nucleotide fasta files of bins.
+#' @param bin_dir Path to directory containing nucleotide fasta files of bins. Only the nucleotide files containing
+#' contigs should be present. No other files should be present i.e. faa, gbk, nucleotide files of genes, etc.
 #' @param gtdbtk_dir Path to GTDB-tk output directory
-#' #' @param flagstat_dir Path to directory with files containing the raw output of samtools flagstat for each sample. 
+#' @param flagstat_dir Path to directory with files containing the raw output of samtools flagstat for each sample. 
 #' File names should end in _flagstat followed by .csv or .tsv or .txt. Everything before "_flagstat" will be used as the sample names. 
 #' Do not include another "_" after "_flagstat".
 #' @param min_reads Minimum number of reads mapped to a contig to be considered present in a metagenome. Default is 10 reads.
