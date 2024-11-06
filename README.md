@@ -2,7 +2,7 @@
 See [Sulfur B_MAGs](https://github.com/Silveira-Lab/sulfur_bmags) for a more complete description of integrating this into a larger metagenomics pipeline.  
 
 Currently, this programs main function is to take a CoverM output, a bin directory, a GTDB-tk output directory, and a directory containing outputs from samtools flagstat and convert this information into dataframes that are human readable and easily used in generating statistics about the community composition. It caalculates fractional abundances of bins by computing the fractional abundances of contigs within a bin and summing them. The fractional abundance is calculated by the equation:
-$$f_i = {(r_i \over T_j) * (L_mean \over L_i)}$$
+$$f_i = {(r_i / T_j) * (L_mean / L_i)}$$
 ### How to generate the CoverM file
 Currently, the program requires a CoverM output with at least the length, counts, and covered bases of each of your contigs. This can be doe by mapping your reads from each sample to your contigs and then running the following command on the BAM/SAM files.  
 ```
