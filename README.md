@@ -25,10 +25,10 @@ This should include text files containing the outputs of `samtools flagstat` for
 If you want to be stringent in whether or not you consider a contig to be present you can set two types of cutoffs with this program:  
 - Number of Reads (min_reads) - Set an integer value for the minimum number of reads required for the contig to be counted
 - Coverage (cov_cut) - Set a minimum percentage (scale 0-1) of the contig that is covered by reads mapped  
-### Proportions of metagenomes
+#### Proportions of metagenomes
 You can set whether or not you want the fractional abundances of a metagenome to be scaled to 1 i.e. a percentage of all of the fractional abundances in said metagenome. The default behavior is to scale them you can turn it off with prop=F.  
-### Adding bacterial counts
+#### Adding bacterial counts
 If you calculated the proportion you may want to assess the actual counts of these proportions by multiplying the proportions by your bacterial counts. You can do this by providing a 2 column dataframe with the sample names (col1) and the bacterial counts (col2).
-### Controling the taxonomic levels and names
+#### Controling the taxonomic levels and names
 We can set the taxonomic level at which you would like all rows to be aggregated. The defaults is to output a MAG per row. But if we want the fractional abundances or proportions at the class level then we can set tax_rank="class" and each row will then output the summed abundances for all MAGs in each class.  
 We can also turn on and off the id strings before each taxonomic level i.e. "d__" for domain, "p__" for phylum... by setting rank_ids=F.
