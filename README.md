@@ -31,4 +31,4 @@ You can set whether or not you want the fractional abundances of a metagenome to
 If you calculated the proportion you may want to assess the actual counts of these proportions by multiplying the proportions by your bacterial counts. You can do this by providing a 2 column dataframe with the sample names (col1) and the bacterial counts (col2).
 #### Controling the taxonomic levels and names
 We can set the taxonomic level at which you would like all rows to be aggregated. The defaults is to output a MAG per row. But if we want the fractional abundances or proportions at the class level then we can set tax_rank="class" and each row will then output the summed abundances for all MAGs in each class.  
-We can also turn on and off the id strings before each taxonomic level i.e. "d__" for domain, "p__" for phylum... by setting rank_ids=F.
+We can also turn off the id strings before each taxonomic level i.e. "d__" for domain, "p__" for phylum... by setting rank_ids=F.
