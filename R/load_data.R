@@ -73,7 +73,7 @@ drep_members <- function(drep_dir){
   others <- clust[!clust$genome %in% chosen$genome, c("genome", "secondary_cluster")]
   #Merge the two lists on the cluster to get an association between non-rep genomes and their reps
   lookup <- merge(chosen, others, by = "secondary_cluster", all.x = T)
-  #Gve meaningful column names
+  #Give meaningful column names
   colnames(lookup) <- c("cluster", "rep", "members")
   return(lookup)
 }
