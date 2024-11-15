@@ -8,6 +8,9 @@ contigs2bins(bin_dir, suffix = "fna")
 }
 \arguments{
 \item{bin_dir}{Path to directory containing nucleotide fasta files of bins.}
+
+\item{suffix}{Ending of fasta files containing contigs in nucleotides. This just changes the string that list files uses as the pattern.
+Default is "fna".}
 }
 \value{
 A data frame with all bins and their associated contigs.

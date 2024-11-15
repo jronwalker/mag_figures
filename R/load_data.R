@@ -72,7 +72,7 @@ drep_members <- function(drep_dir){
   #Generate a list of all of the other genomes and their associated clusters
   others <- clust[!clust$genome %in% chosen$genome, c("genome", "secondary_cluster")]
   #Merge the two lists on the cluster to get an association between non-rep genomes and their reps
-  lookup <- merge(chosen, others, by = "secondary_cluster")
+  lookup <- merge(chosen, others, by = "secondary_cluster", all.x = T)
   #Gve meaningful column names
   colnames(lookup) <- c("cluster", "rep", "members")
   return(lookup)
@@ -84,6 +84,8 @@ drep_members <- function(drep_dir){
 #' outputs a data frame connecting each contig to a bin.
 #'
 #' @param bin_dir Path to directory containing nucleotide fasta files of bins.
+#' @param suffix Ending of fasta files containing contigs in nucleotides. This just changes the string that list files uses as the pattern.
+#' Default is "fna".
 #' @return A data frame with all bins and their associated contigs. 
 #' @importFrom parallel mclapply
 #' @export
