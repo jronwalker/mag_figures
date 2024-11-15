@@ -4,7 +4,7 @@
 \alias{contigs2bins}
 \title{Get the contigs associated with each MAG.}
 \usage{
-contigs2bins(bin_dir)
+contigs2bins(bin_dir, suffix = "fna")
 }
 \arguments{
 \item{bin_dir}{Path to directory containing nucleotide fasta files of bins.}

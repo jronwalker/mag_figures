@@ -87,9 +87,9 @@ drep_members <- function(drep_dir){
 #' @return A data frame with all bins and their associated contigs. 
 #' @importFrom parallel mclapply
 #' @export
-contigs2bins <- function(bin_dir){
+contigs2bins <- function(bin_dir, suffix = "fna"){
   #Read in all of the bin file names
-  files <- list.files(bin_dir, full.names = T)
+  files <- list.files(bin_dir, pattern = suffix, full.names = T)
   #Parallel command to run grep on multiple threads. The grep command looks for lines beginning with ">" and outputs file information.
   #The grep commands are done inside of read.table so that the result is a dataframe with the grep results.
   raw <- parallel::mclapply(files, function(x) read.table(text = system(paste0("grep -H '>' ", x), intern = T)))
@@ -154,6 +154,7 @@ parse_coverm <- function(coverm_tsv){
 reads_meta <- function(flagstat_dir){
   #Read in file names
   files <- list.files(flagstat_dir, pattern = "*flagstat*", full.names = T)
+  if(length(files) < 1) stop("No flagstat files were detected. Make sure your names and directory are correct.")
   #Read in file names without location
   samples <- list.files(flagstat_dir, pattern = "*flagstat*", full.names = F)
   #Get sample names
