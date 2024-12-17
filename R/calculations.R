@@ -23,6 +23,7 @@
 #' @param tax_rank The taxonomic rank at which you would like the fractional abundance to be calculated. 
 #' Ranks that can be used are "bin", "domain", "phylum", "class", "order", "family", "genus", "species". 
 #' The input should be a character string. Default is "bin".
+#' @param gene T or F indicating if mapping was done with genes from prodigal (T) or on contigs (F). Default value is F. 
 #' @return The output will be a data frame containing the fractional abundance of each taxonomic rank chosen.
 #' @importFrom dplyr group_by
 #' @importFrom dplyr group_by_if
@@ -34,7 +35,7 @@
 #' @export
 frac_abund <- function(coverm_out, bin_dir, gtdbtk_dir, flagstat_dir,
                        min_reads = 10, cov_cut, prop = T, per_ml,
-                       rank_ids = TRUE, tax_rank = "bin"){
+                       rank_ids = TRUE, tax_rank = "bin", gene = F){
   #Get contigs in bins information
   c2b <- contigs2bins(bin_dir)
   #Get reads mapped to contigs
@@ -48,11 +49,18 @@ frac_abund <- function(coverm_out, bin_dir, gtdbtk_dir, flagstat_dir,
     covm$counts[covm$coverage < cov_cut] <- 0
   }
   #Merge the counts and contig/bin information
+  if(gene == F){
   b_counts <- merge(c2b, covm[["counts"]], by = "Contig")
   #Calculate the counts per bin
   b_counts <- b_counts %>% select(-Contig) %>% 
     dplyr::group_by(bin) %>% 
-    dplyr::summarise(across(everything(), sum))
+    dplyr::summarise(across(everything(), sum))} else
+      {
+    b_counts <- covm[["counts"]] %>% separate(Contig, into = c("name", "number"), extra = "drop", sep = "_") %>%
+      unite("Contig", name:number)
+    b_counts <- b_counts %>% group_by(Contig) %>% summarise_if(is.numeric, sum)
+    b_counts <- merge(c2b, b_counts, by = "Contig") %>% group_by(bin) %>% summarise_if(is.numeric, sum)
+  }
   #Get total read counts per metagenome
   totals <- reads_meta(flagstat_dir)
   #If then statement to make sure the sample names are the same. Output an error otherwise
@@ -64,7 +72,7 @@ frac_abund <- function(coverm_out, bin_dir, gtdbtk_dir, flagstat_dir,
   } else 
     {
     stop("The samples with mapped reads and the samples with total reads do not have matching names. Double check that 
-         your flagstat and idxfiles are all there and name similarily. ")
+         your flagstat and coverm are all there and name similarily. ")
       }
   #Merge the lengths and contig/bin information
   b_lengths <- merge(c2b, covm[["length"]], by = "Contig")
@@ -74,7 +82,7 @@ frac_abund <- function(coverm_out, bin_dir, gtdbtk_dir, flagstat_dir,
     dplyr::summarise(across(everything(), sum))
   #Make the length coefficient table
   b_lengths$len_coeff <- mean(b_lengths$length)/b_lengths$length
-  #Multiple rows by the length coefficient
+  #Multiply rows by the length coefficient
   frac_abund <- sweep(per_meta[b_lengths$bin,], 1, b_lengths$len_coeff, "*")
   #Move the row names to a new column
   frac_abund <- cbind(row.names(frac_abund), frac_abund)

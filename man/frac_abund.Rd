@@ -14,7 +14,8 @@ frac_abund(
   prop = T,
   per_ml,
   rank_ids = TRUE,
-  tax_rank = "bin"
+  tax_rank = "bin",
+  gene = F
 )
 }
 \arguments{
@@ -47,6 +48,8 @@ Default is TRUE which retains the prefixes. FALSE will remove the prefixes.}
 \item{tax_rank}{The taxonomic rank at which you would like the fractional abundance to be calculated.
 Ranks that can be used are "bin", "domain", "phylum", "class", "order", "family", "genus", "species".
 The input should be a character string. Default is "bin".}
+
+\item{gene}{T or F indicating if mapping was done with genes from prodigal (T) or on contigs (F). Default value is F.}
 }
 \value{
 The output will be a data frame containing the fractional abundance of each taxonomic rank chosen.
